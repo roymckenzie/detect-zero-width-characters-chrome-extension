@@ -1,0 +1,18 @@
+.zero-length-characters {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  position: relative;
+}
+
+.zero-length-characters:after {
+  background: #ffb2b2;
+  bottom: 0;
+  color: #000;
+  content: 'Warning: Contains zero-width characters.';
+  float: right;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 4px;
+  position: absolute;
+  right: 0;
+}
