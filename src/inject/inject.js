@@ -3,17 +3,15 @@ chrome.extension.sendMessage({}, function(response) {
     if (document.readyState === "complete") {
       clearInterval(readyStateCheckInterval);
 
-      // ----------------------------------------------------------
-      // This part of the script triggers when page is done loading
-      console.log("Hello. This message was sent from scripts/inject.js hehe");
-      // ----------------------------------------------------------
+      // Check Page
+      checkPage();
 
+      // Check page again when any input field is changed
       const inputs = document.querySelectorAll('input');
       [...inputs].forEach( function( input ) {
         input.addEventListener( 'change', checkPage );
       });
 
-      checkPage();
     }
   }, 10);
 
