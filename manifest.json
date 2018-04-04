@@ -2,7 +2,7 @@
   "name": "Detect Zero-Width Characters",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "This extension detects zero-width characters on a page, highlights the containing DOM element, and dislays a warning at the bottom-right of the DOM element.",
+  "description": "Detects zero-width characters on a page, highlights the containing DOM element, and displays a warning at bottom-right of element.",
   "homepage_url": "https://github.com/roymckenzie/detect-zero-width-characters-chrome-extension",
   "content_scripts": [
     {
