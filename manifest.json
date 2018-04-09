@@ -4,6 +4,22 @@
   "manifest_version": 2,
   "description": "Detects zero-width characters on a page, highlights the containing DOM element, and displays a warning at bottom-right of element.",
   "homepage_url": "https://github.com/roymckenzie/detect-zero-width-characters-chrome-extension",
+  "permissions": [
+    "contextMenus",
+    "clipboardWrite"
+  ],
+  "background": {
+    "scripts": [
+      "src/constants.js",
+      "src/utils.js",
+      "src/background/background.js"
+    ]
+  },
+  "icons": {
+    "16": "src/icon/16x16.png",
+    "48": "src/icon/48x48.png",
+    "128": "src/icon/128x128.png"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -20,6 +36,7 @@
         "https://*/*"
       ],
       "js": [
+        "src/constants.js",
         "src/inject/inject.js"
       ]
     }
