@@ -1,11 +1,13 @@
 (function() {
-  let elementsWithZLCC = [];
+  let elementsWithZWCC = [];
 
-  const checkPage = function() {
-    const allElements = document.getElementsByTagName('*');
-    [...allElements].forEach( checkElement );
-  }
-
+  /**
+  * Checks DOM element for zero-width character.
+  *
+  * @param {dom node} element   A DOM node.
+  *
+  * @since 0.0.1
+  */
   // From: https://jsfiddle.net/tim333/np874wae/13/
   const checkElement = function( element ) {
     const text = textWithoutChildren( element );
@@ -14,18 +16,27 @@
       unicodeCode = character.codePointAt(0);
 
       if (
-        zeroLengthCharacterCodes.includes( unicodeCode )
-        && !elementsWithZLCC.includes(element)
+        zeroWidthCharacterCodes.includes( unicodeCode )
+        && !elementsWithZWCC.includes(element)
       ) {
-        elementsWithZLCC.push(element)
+        elementsWithZWCC.push(element)
       }
     });
 
-    elementsWithZLCC.forEach(function( element ) {
-      element.classList.add('zero-length-characters');
+    elementsWithZWCC.forEach(function( element ) {
+      element.classList.add('zero-width-characters');
     })
   }
 
+  /**
+  * Pulls text from DOM node not including child DOM nodes.
+  *
+  * @param {node} element   A DOM node.
+  *
+  * @since 0.0.1
+  *
+  * @return {string}  The text inside the DOM node.
+  */
   // From: https://stackoverflow.com/a/9340862/535363
   const textWithoutChildren = function( element ) {
     let child = element.firstChild,
@@ -39,6 +50,16 @@
     }
 
     return texts.join("");
+  }
+
+  /**
+  * Checks current document for zero-width characters.
+  *
+  * @since 0.0.1
+  */
+  const checkPage = function() {
+    const allElements = document.getElementsByTagName('*');
+    [...allElements].forEach( checkElement );
   }
 
   chrome.extension.sendMessage({}, function(response) {
@@ -59,10 +80,10 @@
     }, 10);
   });
 
-  document.body.addEventListener('mouseup', function (e) {
+  document.body.addEventListener('mouseup', function ( event ) {
     const selection = window.getSelection();
 
-    const shouldSanitizeSelection  = elementsWithZLCC
+    const shouldSanitizeSelection = elementsWithZWCC
       .map(function(element) {
         return selection.containsNode(element, true);
       })
@@ -73,14 +94,14 @@
         "shouldSanitizeSelection": shouldSanitizeSelection,
         "selection": selection.toString()
       });
-    } catch(e) {
+    } catch(event) {
       if (
-        e.message.match(/Invocation of form runtime\.connect/) &&
-        e.message.match(/doesn't match definition runtime\.connect/)
+        event.message.match(/Invocation of form runtime\.connect/) &&
+        event.message.match(/doesn't match definition runtime\.connect/)
       ) {
         console.error('Chrome extension has been reloaded. Please refresh the page');
       } else {
-        throw(e);
+        throw(event);
       }
     }
   });

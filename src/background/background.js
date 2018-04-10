@@ -1,29 +1,41 @@
 (function() {
   let contextMenuOptionId, selectionText;
 
+  /**
+   * Sanitizes and copies some text.
+   *
+   * @since 0.0.2
+   */
   const sanitizeAndCopy = function() {
-    copyTextToClipboard(sanitize(selectionText));
+    copyTextToClipboard( sanitize( selectionText ) );
   };
 
-  const handleContextMenu = function(request) {
-    if (request.shouldSanitizeSelection) {
+  /**
+   * Builds a context menu in Chrome.
+   *
+   * @param {object} request  The chrome.runtime.onMessage object.
+   *
+   * @since 0.0.2
+   */
+  const handleContextMenu = function( request ) {
+    if ( request.shouldSanitizeSelection ) {
       selectionText = request.selection;
 
-      if (!contextMenuOptionId) {
+      if ( !contextMenuOptionId ) {
         contextMenuOptionId = chrome.contextMenus.create({
           "title" : "Sanitize and copy",
           "type" : "normal",
-          "contexts" : ["selection"],
+          "contexts" : [ "selection" ],
           "onclick" : sanitizeAndCopy
         });
       }
     } else {
-      if (contextMenuOptionId) {
-        chrome.contextMenus.remove(contextMenuOptionId);
+      if ( contextMenuOptionId ) {
+        chrome.contextMenus.remove( contextMenuOptionId );
         contextMenuOptionId = null;
       }
     }
   };
 
-  chrome.runtime.onMessage.addListener(handleContextMenu);
+  chrome.runtime.onMessage.addListener( handleContextMenu );
 })();

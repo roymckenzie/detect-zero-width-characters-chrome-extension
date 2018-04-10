@@ -1,11 +1,11 @@
-.zero-length-characters {
+.zero-width-characters {
   background-color: rgba(255, 0, 0, 0.2) !important;
   position: relative;
 }
 
-.zero-length-characters:after {
+.zero-width-characters:after {
   background: #ffb2b2;
-  bottom: 0;
+  bottom: -14px;
   color: #000;
   content: 'Warning: Contains zero-width characters.';
   float: right;
