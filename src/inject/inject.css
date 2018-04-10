@@ -17,3 +17,8 @@
   position: absolute;
   right: 0;
 }
+
+.zero-width-character:after {
+  color: red;
+  content: '\25CF';
+}
