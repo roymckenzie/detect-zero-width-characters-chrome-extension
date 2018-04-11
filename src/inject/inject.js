@@ -2,6 +2,19 @@
   let elementsWithZWCC = [];
 
   /**
+   * Highlight zero-width character in DOM element
+   *
+   * @param  {dom node} element   A DOM node.
+   */
+  const highlightCharacters = function(element) {
+    const zeroWidthCharacters = String.fromCodePoint(...zeroWidthCharacterCodes);
+    const regExp = new RegExp(`([${zeroWidthCharacters}])`, 'g')
+
+    element.innerHTML = element.innerHTML
+      .replace(regExp, '$1<span class="zero-width-character"></span>');
+  };
+
+  /**
   * Checks DOM element for zero-width character.
   *
   * @param {dom node} element   A DOM node.
@@ -22,10 +35,6 @@
         elementsWithZWCC.push(element)
       }
     });
-
-    elementsWithZWCC.forEach(function( element ) {
-      element.classList.add('zero-width-characters');
-    })
   }
 
   /**
@@ -59,7 +68,13 @@
   */
   const checkPage = function() {
     const allElements = document.getElementsByTagName('*');
-    [...allElements].forEach( checkElement );
+
+    [...allElements].forEach(checkElement);
+
+    elementsWithZWCC.forEach(function( element ) {
+      element.classList.add('zero-width-characters');
+      highlightCharacters(element);
+    });
   }
 
   chrome.extension.sendMessage({}, function(response) {
