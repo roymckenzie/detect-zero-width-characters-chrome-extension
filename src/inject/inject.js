@@ -73,7 +73,13 @@
    *
    * @since 0.0.1
    */
-  const checkPage = () => {
+  const checkPage = async () => {
+    const opts = await getOptions()
+
+    if (opts.CHECK_PAGE_IN_SECS.value > 0) {
+      await wait(opts.CHECK_PAGE_IN_SECS.value)
+    }
+
     const allElements = document.getElementsByTagName("*");
 
     [...allElements].forEach(checkElement);

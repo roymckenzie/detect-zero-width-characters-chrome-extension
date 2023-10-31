@@ -32,3 +32,7 @@ const copyTextToClipboard = (text) => {
 
   body.removeChild(textArea);
 };
+
+const wait = (secs) => {
+  return new Promise(resolve => setTimeout(resolve, secs * 1000));
+}
