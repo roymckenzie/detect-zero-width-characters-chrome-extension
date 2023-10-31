@@ -34,3 +34,18 @@ const handleContextMenu = (message) => {
 };
 
 chrome.runtime.onMessage.addListener(handleContextMenu);
+
+chrome.runtime.onInstalled.addListener(async () => {
+  const contentScripts = chrome.runtime.getManifest().content_scripts;
+  if (!contentScripts) return;
+  for (const cs of contentScripts) {
+    if (!cs.js) return;
+    for (const tab of await chrome.tabs.query({ url: cs.matches })) {
+      if (!tab.id) return;
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: cs.js,
+      });
+    }
+  }
+});

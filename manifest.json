@@ -4,7 +4,7 @@
   "manifest_version": 3,
   "description": "Detects zero-width characters, highlights the characters and containing DOM element, and allows sanitization and copying of text.",
   "homepage_url": "https://github.com/roymckenzie/detect-zero-width-characters-chrome-extension",
-  "permissions": ["contextMenus", "clipboardWrite"],
+  "permissions": ["contextMenus", "clipboardWrite", "scripting"],
   "background": {
     "service_worker": "src/background/service-worker.js"
   },
