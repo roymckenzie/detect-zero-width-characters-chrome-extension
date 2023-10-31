@@ -11,4 +11,4 @@ Install [the extension](https://chrome.google.com/webstore/detail/detect-zero-wi
 
 ## License
 
-Detect Zero-Width Characters Chrome Extension is an Open Source project covered by the [GNU General Public License version 2](LICENSE).
+Detect Zero-Width Characters Chrome Extension is an Open Source project covered by the [GNU General Public License version 3](LICENSE).
