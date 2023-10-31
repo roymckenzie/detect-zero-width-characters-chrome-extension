@@ -12,3 +12,17 @@
  * @property {"sanitizeAndCopyContextMenuItemAction"} type
  * @property {string} text - The text to copy to clipboard.
  */
+
+
+/**
+ * @typedef {object} Options
+ * 
+ * @property {Option} CHECK_PAGE_IN_SECS
+ */
+
+/**
+ * @typedef {object} Option
+ * 
+ * @property {string} name
+ * @property {*} value
+ */
