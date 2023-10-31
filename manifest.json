@@ -20,7 +20,11 @@
     },
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["src/helpers/constants.js", "src/helpers/utils.js", "src/inject/inject.js"]
+      "js": [
+        "src/helpers/constants.js",
+        "src/helpers/utils.js",
+        "src/inject/inject.js"
+      ]
     }
   ]
 }

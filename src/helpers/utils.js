@@ -8,6 +8,7 @@ const sanitize = (text) => {
   return [...text]
     .filter((char) => {
       const unicodeCode = char.codePointAt(0);
+      if (!unicodeCode) return;
       return !zeroWidthCharacterCodes.includes(unicodeCode);
     })
     .join("");

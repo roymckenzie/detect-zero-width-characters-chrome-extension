@@ -59,7 +59,7 @@
       texts = [];
 
     while (child) {
-      if (child.nodeType == 3) {
+      if (child.nodeType === Node.TEXT_NODE && child instanceof Text) {
         texts.push(child.data);
       }
       child = child.nextSibling;
@@ -99,7 +99,7 @@
         type: "sanitizeAndCopyContextMenu",
         shouldSanitizeSelection: shouldSanitizeSelection,
         textSelection: selection.toString(),
-      }
+      };
 
       chrome.runtime.sendMessage(message);
     } catch (event) {
@@ -118,12 +118,12 @@
 
   /**
    * Handle Sanitize and Copy context menu item action
-   * @param {SanitizeAndCopyContextMenuActionMessage} message 
+   * @param {SanitizeAndCopyContextMenuActionMessage} message
    */
   const handleMenuItemAction = (message) => {
     if (message.type !== "sanitizeAndCopyContextMenuItemAction") return;
     sanitizeAndCopy(message.text);
-  }
+  };
 
   /**
    * Sanitizes and copies some text.
@@ -136,5 +136,7 @@
 
   chrome.runtime.onMessage.addListener(handleMenuItemAction);
 
-  checkPage();
+  setTimeout(() => {
+    checkPage();
+  }, 1000);
 })();
